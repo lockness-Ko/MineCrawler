@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"strings"
 )
 
 func getDist(e1 Entity, e2 Entity) float64 {
@@ -46,7 +47,23 @@ type Player struct {
 }
 
 func (_this *Player) tick() {
+	funcs := strings.SplitAfter(inp, ";")
 
+	for _, func_ := range funcs {
+		func_ = strings.ReplaceAll(func_, ";", "")
+		switch func_ {
+		case "w":
+			(*_this).y -= 1
+		case "s":
+			(*_this).y += 1
+		case "a":
+			(*_this).x -= 1
+		case "d":
+			(*_this).x += 1
+		default:
+
+		}
+	}
 }
 
 func (_this *Player) draw() {

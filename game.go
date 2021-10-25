@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+var inp string = ""
+
 type Game struct {
 	robots []Robot
 	player Player
@@ -20,7 +22,7 @@ func newGame(robots int) Game {
 }
 
 func (_this *Game) start() {
-	for true {
+	for {
 		(*_this).loop()
 	}
 }
@@ -30,7 +32,9 @@ func (_this *Game) loop() {
 	rand.Seed(time.Now().Local().UnixNano())
 	(*_this).tick()
 	(*_this).draw()
-	time.Sleep(time.Millisecond * 300)
+	pos(0, height*2+1)
+	inp = input(">")
+	// time.Sleep(time.Millisecond * 300)
 }
 
 func (_this *Game) tick() {
