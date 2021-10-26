@@ -7,6 +7,7 @@ import (
 )
 
 var inp string = ""
+var toDraw string = ""
 
 type Game struct {
 	robots []Robot
@@ -51,14 +52,22 @@ func (_this *Game) loop() {
 	(*_this).draw()
 	stats((*_this).player)
 	pos(0, height*2+1)
-	inp = input(color(220, 180, 50) + ">")
-	// time.Sleep(time.Millisecond * 300)
+	// fmt.Println(inp)
+	inp = input("")
 }
 
 func (_this *Game) tick() {
-	((*_this).player).tick((*_this)._map)
+	switch inp {
+	case "\t":
+		toDraw = Rpos(width/2, height/2) + color(255, 255, 255) + "We do a little testing"
+		for inp != "\n" {
+			inp = "\n"
+		}
+	default:
+		((*_this).player).tick((*_this)._map)
+	}
 	for i := 0; i < len((*_this).robots); i++ {
-		((*_this).robots[i]).tick((*_this).player)
+		((*_this).robots[i]).tick()
 	}
 }
 
@@ -70,4 +79,6 @@ func (_this *Game) draw() {
 		((*_this).robots[i]).draw((*_this).player)
 	}
 
+	fmt.Print(toDraw)
+	toDraw = ""
 }

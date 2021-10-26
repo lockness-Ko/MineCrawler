@@ -23,7 +23,12 @@ func (_this *Map) draw(p Player) {
 	scale := 2.
 	for i := 0.; i < (*_this).x; i++ {
 		for j := 0.; j < (*_this).y; j++ {
-			fmt.Print(chars[int(mapVal((*_this).noise.Noise2D(float64(math.Round((i+float64(p.y))/scale))/10, float64(math.Round((j+float64(p.x))/scale))/10)+1.1, 4, 0))])
+			aa := int(mapVal((*_this).noise.Noise2D(float64(math.Round((i+float64(p.y))/scale))/10, float64(math.Round((j+float64(p.x))/scale))/10)+1.1, 4, 0))
+			if aa == 1 {
+				fmt.Print(color(220, 200, 0) + "@")
+			} else {
+				fmt.Print(chars[aa])
+			}
 		}
 		fmt.Print("\r\n")
 	}

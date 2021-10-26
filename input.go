@@ -25,6 +25,10 @@ func pos(x int, y int) {
 	fmt.Printf("\033[%d;%dH", y/2, x)
 }
 
+func Rpos(x int, y int) string {
+	return fmt.Sprintf("\033[%d;%dH", y/2, x)
+}
+
 func input(prompt string) string {
 	fmt.Print(prompt)
 	// scanner := bufio.NewScanner(os.Stdin)

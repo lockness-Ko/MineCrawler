@@ -6,7 +6,6 @@ import (
 	"math/rand"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 func getDist(e1 Entity, e2 Entity) float64 {
@@ -26,15 +25,19 @@ func (_this *Entity) tick() {
 }
 
 func (_this *Entity) draw(p Player) {
-	pos(_this.x-(p.x), _this.y-(p.y))
-	fmt.Println(_this.char)
+	if ((*_this).x-(p.x) > width || (*_this).x-(p.x) < 0) || ((*_this).y-(p.y) > height*2 || (*_this).y-(p.y) < 0) {
+
+	} else {
+		pos(_this.x-(p.x), _this.y-(p.y))
+		fmt.Println(_this.char)
+	}
 }
 
 type Robot struct {
 	Entity
 }
 
-func (_this *Robot) tick(p Player) {
+func (_this *Robot) tick() {
 	(*_this).x += rand.Intn(3) - 1
 	(*_this).y += rand.Intn(3) - 1
 }
@@ -75,59 +78,26 @@ func getNumber(str string) int {
 }
 
 func (_this *Player) tick(m Map) {
-	funcs := strings.SplitAfter(inp, ";")
+	moves := (*_this).collides(m)
 
-	for _, func_ := range funcs {
-		moves := (*_this).collides(m)
-
-		func_ = strings.ReplaceAll(func_, ";", "")
-
-		switch func_ {
-		case "w":
-			if moves[0] {
-				(*_this).y -= 1
-			}
-		case "s":
-			if moves[1] {
-				(*_this).y += 1
-			}
-		case "a":
-			if moves[2] {
-				(*_this).x -= 1
-			}
-		case "d":
-			if moves[3] {
-				(*_this).x += 1
-			}
-		default:
-			if strings.Contains(func_, "f") {
-				num := getNumber(strings.Split(func_, ",")[1])
-
-				for i := 0; i < num; i++ {
-					switch strings.Split(func_, ",")[2] {
-					case "w":
-						if moves[0] {
-							(*_this).y -= 1
-						}
-					case "s":
-						if moves[1] {
-							(*_this).y += 1
-						}
-					case "a":
-						if moves[2] {
-							(*_this).x -= 1
-						}
-					case "d":
-						if moves[3] {
-							(*_this).x += 1
-						}
-					default:
-
-					}
-				}
-			}
+	switch inp {
+	case "w":
+		if moves[0] {
+			(*_this).y -= 1
 		}
-
+	case "s":
+		if moves[1] {
+			(*_this).y += 1
+		}
+	case "a":
+		if moves[2] {
+			(*_this).x -= 1
+		}
+	case "d":
+		if moves[3] {
+			(*_this).x += 1
+		}
+	default:
 	}
 }
 

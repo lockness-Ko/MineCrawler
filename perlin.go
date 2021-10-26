@@ -17,6 +17,7 @@ type Perlin struct {
 	alpha float64
 	beta  float64
 	n     int32
+	ss    int64
 
 	p  [B + B + 2]int32
 	g3 [B + B + 2][3]float64
@@ -30,7 +31,7 @@ type Perlin struct {
 // "beta" is the harmonic scaling/spacing, typically 2, n is the
 // number of iterations and seed is the math.rand seed value to use
 func NewPerlin(alpha, beta float64, n int32, seed int64) *Perlin {
-	return NewPerlinRandSource(alpha, beta, n, rand.NewSource(seed))
+	return NewPerlinRandSource(alpha, beta, n, rand.NewSource(seed), seed)
 }
 
 // NewPerlinRandSource creates new Perlin noise generator
@@ -38,7 +39,7 @@ func NewPerlin(alpha, beta float64, n int32, seed int64) *Perlin {
 // Typically it is 2, As this approaches 1 the function is noisier.
 // "beta" is the harmonic scaling/spacing, typically 2, n is the
 // number of iterations and source is source of pseudo-random int64 values
-func NewPerlinRandSource(alpha, beta float64, n int32, source rand.Source) *Perlin {
+func NewPerlinRandSource(alpha, beta float64, n int32, source rand.Source, seed int64) *Perlin {
 	var p Perlin
 	var i, j int32
 
@@ -78,7 +79,7 @@ func NewPerlinRandSource(alpha, beta float64, n int32, source rand.Source) *Perl
 			p.g3[B+i][j] = p.g3[i][j]
 		}
 	}
-
+	p.ss = seed
 	return &p
 }
 
