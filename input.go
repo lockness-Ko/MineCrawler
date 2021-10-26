@@ -1,17 +1,20 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"math"
 	"os"
 )
 
-var char_player string = "▲"
-var char_robot string = "§"
+var char_player string = color(80, 120, 200) + "▲"
+var char_robot string = color(255, 0, 0) + "§"
 
 func mapVal(val float64, max float64, min float64) float64 {
 	return math.Floor(val*(max-min)) + min
+}
+
+func color(r, g, b int) string {
+	return fmt.Sprintf("\x1b[38;2;%d;%d;%dm", r, g, b)
 }
 
 func cls() {
@@ -24,10 +27,11 @@ func pos(x int, y int) {
 
 func input(prompt string) string {
 	fmt.Print(prompt)
-	scanner := bufio.NewScanner(os.Stdin)
-	if scanner.Scan() {
-		// fmt.Println(scanner.Text())
-		return scanner.Text()
-	}
-	return ""
+	// scanner := bufio.NewScanner(os.Stdin)
+	// if scanner.Scan() {
+	// 	return scanner.Text()
+	// }
+	var b []byte = make([]byte, 1)
+	os.Stdin.Read(b)
+	return string(b[:])
 }

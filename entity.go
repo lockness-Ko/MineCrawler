@@ -10,7 +10,7 @@ import (
 )
 
 func getDist(e1 Entity, e2 Entity) float64 {
-	return math.Sqrt(math.Pow(2, float64(e2.x-e1.x)) + math.Pow(2, float64(e2.y-e1.y)))
+	return math.Sqrt(math.Pow(float64(e2.x-e1.x), 2) + math.Pow(float64(e2.y-e1.y), 2))
 }
 
 func getDir(e1 Entity, e2 Entity) float64 {
@@ -25,8 +25,8 @@ type Entity struct {
 func (_this *Entity) tick() {
 }
 
-func (_this *Entity) draw() {
-	pos(_this.x, _this.y)
+func (_this *Entity) draw(p Player) {
+	pos(_this.x-(p.x), _this.y-(p.y))
 	fmt.Println(_this.char)
 }
 
@@ -35,38 +35,34 @@ type Robot struct {
 }
 
 func (_this *Robot) tick(p Player) {
-	if getDist((*_this).Entity, p.Entity) < 10 {
-		(*_this).x += rand.Intn(3) - 1
-		(*_this).y += rand.Intn(3) - 1
-	} else {
-		(*_this).x += int(2 * math.Sin(getDir((*_this).Entity, p.Entity)))
-		(*_this).y -= int(2 * math.Cos(getDir((*_this).Entity, p.Entity)))
-	}
+	(*_this).x += rand.Intn(3) - 1
+	(*_this).y += rand.Intn(3) - 1
 }
 
 type Player struct {
 	Entity
+	gold, health, kills int
 }
 
 func (_this *Player) collides(m Map) []bool {
 	moves := []bool{true, true, true, true}
 	switch m.getTileAtPos(*_this, 0, -1) {
-	case "#":
+	case wall:
 		moves[0] = false
 	}
 
 	switch m.getTileAtPos(*_this, 0, 1) {
-	case "#":
+	case wall:
 		moves[1] = false
 	}
 
 	switch m.getTileAtPos(*_this, -1, 0) {
-	case "#":
+	case wall:
 		moves[2] = false
 	}
 
 	switch m.getTileAtPos(*_this, 1, 0) {
-	case "#":
+	case wall:
 		moves[3] = false
 	}
 	return moves
