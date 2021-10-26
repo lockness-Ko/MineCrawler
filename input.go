@@ -7,8 +7,8 @@ import (
 	"os"
 )
 
-var char_player string = "👷"
-var char_robot string = "🤖"
+var char_player string = "▲"
+var char_robot string = "§"
 
 func mapVal(val float64, max float64, min float64) float64 {
 	return math.Floor(val*(max-min)) + min

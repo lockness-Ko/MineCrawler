@@ -26,7 +26,7 @@ func (_this *Map) draw(p Player) {
 }
 
 func (_this *Map) getTileAtPos(p Player, x, y int) string {
-	sy, sx := float64(width/2), float64(height/2)-1
+	sy, sx := float64(width/2)-1, float64(height/2)-1
 	scale := 2.
 	return chars[int(mapVal((*_this).noise.Noise2D(float64(math.Round((float64(y)+float64(p.y)+sx)/scale))/10, float64(math.Round((float64(x)+float64(p.x)+sy)/scale))/10)+1.1, 4, 0))]
 }
