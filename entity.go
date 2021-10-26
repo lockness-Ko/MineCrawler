@@ -46,20 +46,50 @@ type Player struct {
 	Entity
 }
 
-func (_this *Player) tick() {
+func (_this *Player) tick(m Map) {
 	funcs := strings.SplitAfter(inp, ";")
+
+	moves := []bool{true, true, true, true}
+
+	switch m.getTileAtPos(*_this, 0, -1) {
+	case "#":
+		moves[0] = false
+	}
+
+	switch m.getTileAtPos(*_this, 0, 1) {
+	case "#":
+		moves[1] = false
+	}
+
+	switch m.getTileAtPos(*_this, -1, 0) {
+	case "#":
+		moves[2] = false
+	}
+
+	switch m.getTileAtPos(*_this, 1, 0) {
+	case "#":
+		moves[3] = false
+	}
 
 	for _, func_ := range funcs {
 		func_ = strings.ReplaceAll(func_, ";", "")
 		switch func_ {
 		case "w":
-			(*_this).y -= 1
+			if moves[0] {
+				(*_this).y -= 1
+			}
 		case "s":
-			(*_this).y += 1
+			if moves[1] {
+				(*_this).y += 1
+			}
 		case "a":
-			(*_this).x -= 1
+			if moves[2] {
+				(*_this).x -= 1
+			}
 		case "d":
-			(*_this).x += 1
+			if moves[3] {
+				(*_this).x += 1
+			}
 		default:
 
 		}

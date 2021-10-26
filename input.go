@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var char_player string = "옷"
+var char_player string = "👷"
 var char_robot string = "🤖"
 
 func mapVal(val float64, max float64, min float64) float64 {

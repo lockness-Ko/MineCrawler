@@ -38,7 +38,7 @@ func (_this *Game) loop() {
 }
 
 func (_this *Game) tick() {
-	((*_this).player).tick()
+	((*_this).player).tick((*_this)._map)
 	for i := 0; i < len((*_this).robots); i++ {
 		((*_this).robots[i]).tick((*_this).player)
 	}
