@@ -7,7 +7,7 @@ import (
 )
 
 var char_player string = color(80, 120, 200) + "▲"
-var char_robot string = color(255, 0, 0) + "§"
+var char_robot string = color(255, 220, 220) + "∩"
 
 func mapVal(val float64, max float64, min float64) float64 {
 	return math.Floor(val*(max-min)) + min

@@ -13,8 +13,8 @@ func main() {
 	width, height, _ = term.GetSize(0)
 
 	height -= 1
-	// width /= 2
-	game := newGame(10)
+	width /= 2
+	game := newGame(1)
 
 	game.start()
 }
