@@ -1,0 +1,7 @@
+stty -F /dev/tty cbreak min 1
+tput civis
+#stty raw -echo
+
+go run .
+
+#reset
