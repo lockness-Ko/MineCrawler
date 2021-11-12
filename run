@@ -4,4 +4,4 @@ tput civis
 
 go run .
 
-#reset
+reset
