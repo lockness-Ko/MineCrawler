@@ -18,7 +18,7 @@ type Game struct {
 }
 
 func newGame() Game {
-	return Game{Player{Entity{0, 0, char_player}, 0, 100, -1}, Map{float64(width), float64(height), *NewPerlin(2, 2, 3, time.Now().Local().UnixNano())}, []Item{Item{Vec{0, 0}, "", ""}}, []string{}}
+	return Game{Player{Entity{0, 0, char_player}, 0, 100, -1, 0}, Map{float64(width), float64(height), *NewPerlin(2, 2, 3, time.Now().Local().UnixNano())}, []Item{Item{Vec{0, 0}, "", ""}}, []string{}}
 }
 
 func (_this *Game) start() {
@@ -116,6 +116,13 @@ func (_this *Game) tick() {
 				pos(width+3, curry)
 				fmt.Print(color(0, 200, 150) + "  ")
 				curry += 2
+			case " ":
+				if (*_this).player.upg >= 0 && (*_this).player.gold >= 10 {
+					(*_this).player.upg -= 1
+					(*_this).player.gold -= 10
+					(*_this).player.health = 100
+					continue
+				}
 			}
 		}
 

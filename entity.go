@@ -36,7 +36,7 @@ func (_this *Entity) draw(p Player) {
 
 type Player struct {
 	Entity
-	gold, health, fups int
+	gold, health, fups, upg int
 }
 
 func (_this *Entity) collides(m Map, sx, sy float64, tems []Item) []bool {
@@ -66,6 +66,10 @@ func (_this *Entity) collides(m Map, sx, sy float64, tems []Item) []bool {
 func (_this *Player) tick(m Map, tems []Item) {
 	if m.getTileAtPos((*_this).Entity, 0, 0, float64(height/2)-1, float64(width/2)-1, tems) == gold {
 		(*_this).gold += 1
+	}
+
+	if m.getTileAtPos((*_this).Entity, 0, 0, float64(height/2)-1, float64(width/2)-1, tems) == item {
+		(*_this).upg += 1
 	}
 
 	(*_this).health += (*_this).fups

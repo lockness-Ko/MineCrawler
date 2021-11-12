@@ -1,4 +1,4 @@
-module school/golike
+module school/minecrawler
 
 go 1.16
 
